@@ -21,11 +21,13 @@ public class CDR {
     private LocalDateTime dateChargement;
     private String filename;
     private String channel;
+    private boolean isCDRProcessed;
 
     public CDR(String cleRecharge, float montantRecharge,
                int numEnvoyeur, String IMSI,
                String serviceName, String transactionId,
-               LocalDateTime dateChargement, String filename, String channel) {
+               LocalDateTime dateChargement, String filename, String channel
+               ) {
 //      this.id = id;
         this.cleRecharge = cleRecharge;
         this.montantRecharge = montantRecharge;
