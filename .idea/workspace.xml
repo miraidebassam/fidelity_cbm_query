@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cffa46-fd0d-4480-bc25-baef437e058b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/entities/ClientPointsInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/config/Paramettres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/entities/CDR.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/entities/CDR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/utils/RequetteSql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ogb/fidelity/utils/RequetteSql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +37,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.CbmFidelityApp.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -47,7 +48,8 @@
     &quot;last_opened_file_path&quot;: &quot;D:/Memoire_Master/Projet_Fidelisation_Client/cbm-fidelity/src/main/resources&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -57,6 +59,15 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.ogb.fidelity.config" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="CbmFidelityApp" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.ogb.fidelity.Main" />
+      <module name="cbm-fidelity" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -85,18 +96,18 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ogb/fidelity/utils/RequetteSql.java</url>
-          <line>75</line>
+          <line>82</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ogb/fidelity/utils/RequetteSql.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="49" />
+          <line>219</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ogb/fidelity/utils/RequetteSql.java</url>
-          <line>212</line>
-          <option name="timeStamp" value="69" />
+          <line>334</line>
+          <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

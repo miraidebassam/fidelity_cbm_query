@@ -2,17 +2,22 @@ package com.ogb.fidelity.utils;
 
 import com.ogb.fidelity.config.ConectionFidelityDatabase;
 import com.ogb.fidelity.config.ConnectionCBMDatabase;
+import com.ogb.fidelity.config.Paramettres;
 import com.ogb.fidelity.entities.CDR;
 import com.ogb.fidelity.entities.Client;
 import com.ogb.fidelity.entities.Offre;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RequetteSql {
@@ -21,6 +26,8 @@ public class RequetteSql {
     LocalDate today = LocalDate.now();
 
     public List<CDR> listCdr() {
+        System.out.println("La date d'auj: "
+                +today);
         ArrayList<CDR> listeM = new ArrayList<>();
         ArrayList<CDR> listeBDDFidelity = new ArrayList<>();
         //Recuperation de la liste des clienst isncrit dans le programme de fidelite
@@ -195,7 +202,7 @@ public class RequetteSql {
         return listeOffre;
     }
 
-    public void addPtsToClient(ArrayList<CDR> listCdr, ArrayList<Client> listClient, ArrayList<Offre> listOffre){
+    public void addPtsToClient(ArrayList<CDR> listCdr, ArrayList<Client> listClient, ArrayList<Offre> listOffre) throws IOException {
         listOffre.forEach(System.out::println);
         int compteurClient = 0;
         // Pour chaque CDR
@@ -236,6 +243,12 @@ public class RequetteSql {
                         //Ici je fais un update de la table t_client
                         updateTableClient(compteurClient, client.getNumTelephone(),
                                 offre.getCleOffre(), cdr.getMontantRecharge(), Timestamp.valueOf(client.getDateMiseJour()));
+
+                        //Send message to Client
+                        sendSms(String.valueOf(client.getNumTelephone()), pointsToAdd);
+
+                        // Envoyer notification USSD au client
+//                        ussdService.sendUSSDRequest(String.valueOf(client.getNumTelephone()), "Vous avez gagné " + points + " points.");
                     }else{
                         System.out.println("L'offre n'est pas present!");
                     }
@@ -303,5 +316,40 @@ public class RequetteSql {
 
     public int pointsToAdd(float montantRecharge, float prixOffre, int nbrPointsOfferts){
         return (int) ((montantRecharge/prixOffre)*nbrPointsOfferts);
+    }
+
+    public void sendSms(String msisdn, int pointsGagne) throws IOException {
+        String message = "Afeicao: Apos sua recarga, a Orange oferece-lhe "+pointsGagne+" pontos. " +
+                "Obrigado pela sua preferencia.";
+        String expediteur = "Orange";
+        try {
+            //Appel de l'API d'activation de recompense non physique
+            URL url = new URL(Paramettres.SEND_SMS_URL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setDoOutput(true);
+
+            // Préparer les données JSON à envoyer
+            String jsonInputString = String.format("{" +
+                    "\"msisdn\": \"%s\", " +
+                    "\"message\": \"%s\", " +
+                    "\"expediteur\": \"%s\"" +
+                    "}", msisdn, message, expediteur);
+
+            // Envoyer la requête POST
+            try (OutputStream outputStream = httpURLConnection.getOutputStream()) {
+                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+                outputStream.write(input, 0, input.length);
+            }
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                System.out.println("SMS envoyé avec succès.");
+            } else {
+                System.out.println("Échec de l'envoi du SMS. Code de réponse : " + responseCode);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
